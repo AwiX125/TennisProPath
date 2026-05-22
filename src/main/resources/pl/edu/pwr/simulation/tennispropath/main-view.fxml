@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.TextArea?>
+
+<?import javafx.scene.control.Slider?>
+<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="pl.edu.pwr.simulation.tennispropath.controller.SimulationController"
+      style="-fx-background-color: #121212; -fx-padding: 40;">
+
+
+    <Label fx:id="timeLabel" text="Tydzień kariery: 1" textFill="#94a3b8">
+        <font>
+            <Font size="18.0" />
+        </font>
+    </Label>
+
+    <Label fx:id="nameLabel" text="Tennis Pro Path" textFill="#a3e635">
+        <font>
+            <Font name="System Bold" size="32.0" />
+        </font>
+    </Label>
+
+    <VBox spacing="12.0" style="-fx-background-color: #1e1e1e; -fx-padding: 20; -fx-background-radius: 10; -fx-min-width: 350;">
+        <Label fx:id="actionLabel" text="Aktualne działanie: Brak" textFill="#60a5fa" style="-fx-font-size: 16px;"/>
+        <Label fx:id="levelLabel" text="Poziom umiejętności: --" textFill="WHITE" style="-fx-font-size: 16px;"/>
+        <Label fx:id="xpLabel" text="Doświadczenie: -- XP" textFill="WHITE" style="-fx-font-size: 16px;"/>
+
+        <Label fx:id="rankingLabel" text="Punkty rankingowe: 0 pkt" textFill="#e2e8f0" style="-fx-font-size: 16px;"/>
+
+        <Label fx:id="statusLabel" text="Status: Zdrowy" textFill="#a3e635" style="-fx-font-size: 16px;"/>
+    </VBox>
+
+    <VBox spacing="10.0" style="-fx-background-color: #1e1e1e; -fx-padding: 15; -fx-background-radius: 10;">
+        <Label text="STATYSTYKI KARIERY" textFill="#94a3b8" style="-fx-font-weight: bold; -fx-font-size: 12px;"/>
+        <HBox spacing="30.0" alignment="CENTER">
+            <VBox alignment="CENTER">
+                <Label text="Wygrane" textFill="LIGHTGRAY" style="-fx-font-size: 11px;"/>
+                <Label fx:id="winsLabel" text="0" textFill="#a3e635" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+            </VBox>
+            <VBox alignment="CENTER">
+                <Label text="Przegrane" textFill="LIGHTGRAY" style="-fx-font-size: 11px;"/>
+                <Label fx:id="lossesLabel" text="0" textFill="#ef4444" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+            </VBox>
+            <VBox alignment="CENTER">
+                <Label text="Win Rate" textFill="LIGHTGRAY" style="-fx-font-size: 11px;"/>
+                <Label fx:id="winRateLabel" text="0%" textFill="#60a5fa" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+            </VBox>
+        </HBox>
+    </VBox>
+
+    <VBox spacing="5.0" alignment="CENTER_LEFT">
+        <Label text="Kondycja (Stamina):" textFill="LIGHTGRAY" />
+        <ProgressBar fx:id="staminaBar" progress="1.0" prefWidth="350.0" style="-fx-accent: #a3e635;"/>
+    </VBox>
+
+    <VBox spacing="5.0" alignment="CENTER_LEFT" style="-fx-min-width: 350;">
+        <Label text="Konsola zdarzeń (Live-Feed):" textFill="#94a3b8" />
+        <TextArea fx:id="logArea" editable="false" prefHeight="150.0" prefWidth="350.0"
+                  wrapText="true"
+                  style="-fx-control-inner-background: #1e1e1e; -fx-text-fill: #e2e8f0; -fx-font-family: 'Consolas', 'Courier New', monospace; -fx-font-size: 13px;"/>
+    </VBox>
+
+    <VBox spacing="10.0" alignment="CENTER" style="-fx-min-width: 350;">
+        <HBox spacing="10.0" alignment="CENTER">
+            <Label text="Prędkość symulacji:" textFill="LIGHTGRAY" />
+            <Slider fx:id="speedSlider" min="5.0" max="1000.0" value="400.0"
+                    prefWidth="400.0" style="-fx-cursor: hand;"/>
+        </HBox>
+    </VBox>
+
+    <HBox spacing="15.0" alignment="CENTER">
+        <Button fx:id="simulationButton" text="URUCHOM SYMULACJĘ" onAction="#onToggleSimulation"
+                style="-fx-background-color: #a3e635; -fx-text-fill: black; -fx-font-weight: bold; -fx-padding: 15 25; -fx-cursor: hand;"/>
+    </HBox>
+
+
+
+
+</VBox>

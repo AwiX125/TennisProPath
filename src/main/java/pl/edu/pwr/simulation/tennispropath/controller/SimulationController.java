@@ -1,0 +1,149 @@
+package pl.edu.pwr.simulation.tennispropath.controller;
+
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.util.Duration;
+import pl.edu.pwr.simulation.tennispropath.model.MatchEngine;
+import pl.edu.pwr.simulation.tennispropath.model.Opponent;
+import pl.edu.pwr.simulation.tennispropath.model.OpponentFactory;
+import pl.edu.pwr.simulation.tennispropath.model.Player;
+
+public class SimulationController {
+
+    @FXML private Label timeLabel;
+    @FXML private Label nameLabel;
+    @FXML private Label actionLabel;
+    @FXML private Label levelLabel;
+    @FXML private Label xpLabel;
+    @FXML private Label statusLabel;
+    @FXML private ProgressBar staminaBar;
+    @FXML private Button simulationButton;
+    @FXML private Label rankingLabel;
+    @FXML private TextArea logArea;
+    @FXML private Slider speedSlider;
+    @FXML private Label winsLabel;
+    @FXML private Label lossesLabel;
+    @FXML private Label winRateLabel;
+
+    private Player player;
+    private final MatchEngine matchEngine = new MatchEngine();
+    private final OpponentFactory opponentFactory = new OpponentFactory();
+    private Timeline timeline;
+    private int currentWeek = 1;
+    private boolean isRunning = false;
+
+    @FXML
+    public void initialize() {
+        double invertedStartSpeed = (1000.0 + 5.0) - 400.0;
+        setupTimeline(invertedStartSpeed);
+    }
+
+    /**
+     * Konfiguruje zegar symulacji dla określonej liczby milisekund
+     */
+    private void setupTimeline(double ms) {
+        boolean resubmit = isRunning;
+        if (timeline != null) {
+            timeline.stop();
+        }
+
+        timeline = new Timeline(new KeyFrame(Duration.millis(ms), event -> nextStep()));
+        timeline.setCycleCount(Animation.INDEFINITE);
+
+        if (resubmit) {
+            timeline.play();
+        }
+    }
+
+    /**
+     * Metoda inicjalizuje obiekt Player z wybranym imieniem
+     * i przygotowuje interfejs do wyświetlenia danych
+     */
+    public void setPlayerName(String name) {
+        this.player = new Player(name);
+        updateUI("Oczekiwanie na start");
+
+        speedSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            double currentSliderValue = newValue.doubleValue();
+
+            double invertedMiliseconds = (1000.0 + 5.0) - currentSliderValue;
+
+            setupTimeline(invertedMiliseconds);
+        });
+    }
+
+    /**
+     * Główna pętla symulacji – wywoływana automatycznie przez zegar
+     */
+    private void nextStep() {
+        currentWeek++;
+        String action;
+
+        if (currentWeek % 4 == 0 && !player.isInjured()) {
+            Opponent bot = opponentFactory.createRandomOpponent(player.getSkillLevel());
+
+            action = matchEngine.simulateMatch(player, bot);
+        } else {
+            int oldStamina = player.getStamina();
+            boolean oldInjury = player.isInjured();
+
+            player.act();
+
+            if (player.isInjured()) {
+                action = oldInjury ? "Rehabilitacja kontuzji" : "Doznał kontuzji z przemęczenia!";
+            } else if (player.getStamina() > oldStamina) {
+                action = "Odpoczynek i regeneracja";
+            } else {
+                action = "Intensywny trening";
+            }
+        }
+
+        logEvent(action);
+
+        updateUI(action);
+    }
+
+    private void logEvent(String message) {
+        String logEntry = "[Tydzień " + currentWeek + "] " + message + "\n";
+        logArea.appendText(logEntry);
+    }
+
+    @FXML
+    protected void onToggleSimulation() {
+        if (isRunning) {
+            timeline.stop();
+            simulationButton.setText("WZNÓW SYMULACJĘ");
+            simulationButton.setStyle("-fx-background-color: #a3e635; -fx-text-fill: black; -fx-font-weight: bold; -fx-padding: 15 25; -fx-cursor: hand;");
+        } else {
+            timeline.play();
+            simulationButton.setText("ZATRZYMAJ SYMULACJĘ");
+            simulationButton.setStyle("-fx-background-color: #ef4444; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 15 25; -fx-cursor: hand;");
+        }
+        isRunning = !isRunning;
+    }
+
+    private void updateUI(String currentAction) {
+        timeLabel.setText("Tydzień kariery: " + currentWeek);
+        actionLabel.setText("Aktualne działanie: " + currentAction);
+        levelLabel.setText("Poziom umiejętności: " + player.getSkillLevel());
+        xpLabel.setText("Doświadczenie: " + player.getExperience() + " XP");
+        staminaBar.setProgress(player.getStamina() / 100.0);
+
+        rankingLabel.setText("Punkty rankingowe: " + player.getRankingPoints() + " pkt");
+
+        winsLabel.setText(String.valueOf(player.getMatchesWon()));
+        lossesLabel.setText(String.valueOf(player.getMatchesLost()));
+        winRateLabel.setText(String.format("%.0f%%", player.getWinRate()));
+
+        if (player.isInjured()) {
+            statusLabel.setText("Status: KONTUZJOWANY");
+            statusLabel.setStyle("-fx-text-fill: #ef4444; -fx-font-weight: bold;");
+        } else {
+            statusLabel.setText("Status: Zdrowy");
+            statusLabel.setStyle("-fx-text-fill: #a3e635; -fx-font-weight: bold;");
+        }
+    }
+}
