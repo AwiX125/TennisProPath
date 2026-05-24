@@ -20,6 +20,16 @@ public class OpponentFactory {
 
         if (botSkill < 10) botSkill = 10;
 
-        return new Opponent(randomName, botSkill);
+        int randomAge = 18 + random.nextInt(28);
+
+        double randomForehandStrength = 30 + random.nextInt(20);
+        double randomBackhandStrength = 30 + random.nextInt(20);
+        double randomServeStrength = 35 + random.nextInt(25);
+
+        double randomClayStrength = 20 + random.nextInt(40);
+        double randomGrassStrength = 20 + random.nextInt(40);
+        double randomHardStrength = 20 + random.nextInt(40);
+
+        return new Opponent(randomName, botSkill, randomAge, randomForehandStrength, randomBackhandStrength, randomServeStrength, randomGrassStrength, randomClayStrength, randomHardStrength);
     }
 }

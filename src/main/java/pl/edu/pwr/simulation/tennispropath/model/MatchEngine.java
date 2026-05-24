@@ -9,33 +9,65 @@ public class MatchEngine {
         CourtType[] types = CourtType.values();
         CourtType court = types[random.nextInt(types.length)];
 
-        double staminaModifier = player.getStamina() / 100.0;
-        double effectivePlayerSkill = player.getSkillLevel() * staminaModifier;
+        int playerWinChance = 1;
+        int opponentWinChance = 1;
 
-        double courtModifier = 0;
+        double playerStaminaMax = player.getStamina() > 0 ? player.getStamina() : 100.0;
+        double energyModifier = player.getEnergy() / playerStaminaMax;
+        double playerBaseTennisSkill = (player.getForehandStrength() + player.getBackhandStrength() + player.getServeStrength()) / 3.0;
+        double opponentBaseTennisSkill = (opponent.getForehandStrength() + opponent.getBackhandStrength() + opponent.getServeStrength()) / 3.0;
+
+        double playerCourtModifier = 0;
+        double opponentCourtModifier = 0;
+
         if (court == CourtType.GRASS) {
-            courtModifier = 4.0;
+            playerCourtModifier = player.getGrassStrength() * 0.2;
+            opponentCourtModifier = opponent.getGrassStrength() * 0.2;
         } else if (court == CourtType.CLAY) {
-            courtModifier = -3.0;
+            playerCourtModifier = player.getClayStrength() * 0.2;
+            opponentCourtModifier = opponent.getClayStrength() * 0.2;
+        } else {
+            playerCourtModifier = player.getHardStrength() * 0.2;
+            opponentCourtModifier = opponent.getHardStrength() * 0.2;
         }
 
-        int playerForm = random.nextInt(21) - 10;
-        int opponentForm = random.nextInt(21) - 10;
+        if (player.getForehandStrength() > opponent.getForehandStrength()) playerWinChance++;
+        else opponentWinChance++;
 
-        double playerTotalPower = effectivePlayerSkill + courtModifier + playerForm;
-        double opponentTotalPower = opponent.getSkillLevel() + opponentForm;
+        if (player.getBackhandStrength() > opponent.getBackhandStrength()) playerWinChance++;
+        else opponentWinChance++;
 
-        player.setStamina(player.getStamina() - 30);
+        if (player.getServeStrength() > opponent.getServeStrength()) playerWinChance++;
+        else opponentWinChance++;
+
+
+        int playerForm = random.nextInt(0,10);
+        int opponentForm = random.nextInt(0, 10);
+
+        double playerIndividualModifier = 1.0;
+        double opponentIndividualModifier = 1.0;
+        if (playerWinChance > opponentWinChance)
+            playerIndividualModifier = 1.25;
+        else
+            opponentIndividualModifier = 1.25;
+
+        double opponentEnergyModifier = 0.8 + (random.nextDouble() * 0.2);
+
+        double playerTotalPower = (playerBaseTennisSkill + playerCourtModifier + playerForm) * energyModifier * playerIndividualModifier;
+        double opponentTotalPower = (opponentBaseTennisSkill + opponentCourtModifier + opponentForm) * opponentEnergyModifier * opponentIndividualModifier;
+
+        player.setEnergy(player.getEnergy() - 30);
 
         String logResult;
 
-        if (playerTotalPower >= opponentTotalPower) {
+        boolean playerMatchResult = playerTotalPower >= opponentTotalPower;
+        player.recordMatchResult(playerMatchResult);
+
+        if (playerMatchResult) {
             player.addRankingPoints(250);
-            player.recordMatchResult(true);
             logResult = "🏆 WYGRAŁ na nawierzchni " + court.getDisplayName() + " z " + opponent.getName() + " (+250 pkt)";
         } else {
             player.addRankingPoints(20);
-            player.recordMatchResult(false);
             logResult = "❌ PRZEGRAŁ na nawierzchni " + court.getDisplayName() + " z " + opponent.getName() + " (+20 pkt)";
         }
 

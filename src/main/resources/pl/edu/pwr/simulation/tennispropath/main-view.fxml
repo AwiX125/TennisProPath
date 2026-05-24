@@ -26,15 +26,67 @@
         </font>
     </Label>
 
-    <VBox spacing="12.0" style="-fx-background-color: #1e1e1e; -fx-padding: 20; -fx-background-radius: 10; -fx-min-width: 350;">
-        <Label fx:id="actionLabel" text="Aktualne działanie: Brak" textFill="#60a5fa" style="-fx-font-size: 16px;"/>
-        <Label fx:id="levelLabel" text="Poziom umiejętności: --" textFill="WHITE" style="-fx-font-size: 16px;"/>
-        <Label fx:id="xpLabel" text="Doświadczenie: -- XP" textFill="WHITE" style="-fx-font-size: 16px;"/>
+    <HBox spacing="20.0" alignment="CENTER" style="-fx-background-color: #1e1e1e; -fx-padding: 20; -fx-background-radius: 10;">
 
-        <Label fx:id="rankingLabel" text="Punkty rankingowe: 0 pkt" textFill="#e2e8f0" style="-fx-font-size: 16px;"/>
+        <VBox spacing="10.0" prefWidth="250.0">
+            <Label text="PROFIL ZAWODNIKA" textFill="#94a3b8" style="-fx-font-weight: bold; -fx-font-size: 12px;"/>
+            <HBox spacing="5">
+                <Label text="Wiek:" textFill="LIGHTGRAY"/>
+                <Label fx:id="ageLabel" text="18 lat" textFill="WHITE" style="-fx-font-weight: bold;"/>
+            </HBox>
+            <HBox spacing="5">
+                <Label text="Poziom umiejętności:" textFill="LIGHTGRAY"/>
+                <Label fx:id="skillLabel" text="20" textFill="#a3e635" style="-fx-font-weight: bold;"/>
+            </HBox>
+            <HBox spacing="5">
+                <Label text="Doświadczenie:" textFill="LIGHTGRAY"/>
+                <Label fx:id="xpLabel" text="0 / 100 XP" textFill="WHITE"/>
+            </HBox>
+            <HBox spacing="5">
+                <Label text="Punkty rankingowe:" textFill="LIGHTGRAY"/>
+                <Label fx:id="rankingLabel" text="0 pkt" textFill="#e2e8f0"/>
+            </HBox>
+            <HBox spacing="5">
+                <Label text="Ulubiony kort:" textFill="LIGHTGRAY"/>
+                <Label fx:id="favCourtLabel" text="-" textFill="#60a5fa" style="-fx-font-weight: bold;"/>
+            </HBox>
+            <HBox spacing="5">
+                <Label fx:id="statusLabel" text="Status: Zdrowy" textFill="#a3e635" style="-fx-font-size: 16px;"/>
+            </HBox>
+        </VBox>
 
-        <Label fx:id="statusLabel" text="Status: Zdrowy" textFill="#a3e635" style="-fx-font-size: 16px;"/>
-    </VBox>
+        <VBox spacing="10.0" prefWidth="250.0" style="-fx-border-color: #334155; -fx-border-width: 0 0 0 1; -fx-padding: 0 0 0 20;">
+            <Label text="UMIEJĘTNOŚCI TENISOWE" textFill="#94a3b8" style="-fx-font-weight: bold; -fx-font-size: 12px;"/>
+            <HBox spacing="5">
+                <Label text="Forehand:" textFill="LIGHTGRAY"/>
+                <Label fx:id="forehandLabel" text="0.0" textFill="WHITE" style="-fx-font-weight: bold;"/>
+            </HBox>
+            <HBox spacing="5">
+                <Label text="Backhand:" textFill="LIGHTGRAY"/>
+                <Label fx:id="backhandLabel" text="0.0" textFill="WHITE" style="-fx-font-weight: bold;"/>
+            </HBox>
+            <HBox spacing="5">
+                <Label text="Serwis:" textFill="LIGHTGRAY"/>
+                <Label fx:id="serveLabel" text="0.0" textFill="WHITE" style="-fx-font-weight: bold;"/>
+            </HBox>
+        </VBox>
+
+        <VBox spacing="10.0" prefWidth="250.0" style="-fx-border-color: #334155; -fx-border-width: 0 0 0 1; -fx-padding: 0 0 0 20;">
+            <Label text="SKILL NA NAWIERZCHNIACH" textFill="#94a3b8" style="-fx-font-weight: bold; -fx-font-size: 12px;"/>
+            <HBox spacing="5">
+                <Label text="Mączka (Clay):" textFill="LIGHTGRAY"/>
+                <Label fx:id="clayLabel" text="0.0" textFill="#f97316" style="-fx-font-weight: bold;"/>
+            </HBox>
+            <HBox spacing="5">
+                <Label text="Trawa (Grass):" textFill="LIGHTGRAY"/>
+                <Label fx:id="grassLabel" text="0.0" textFill="#22c55e" style="-fx-font-weight: bold;"/>
+            </HBox>
+            <HBox spacing="5">
+                <Label text="Twarda (Hard):" textFill="LIGHTGRAY"/>
+                <Label fx:id="hardLabel" text="0.0" textFill="#3b82f6" style="-fx-font-weight: bold;"/>
+            </HBox>
+        </VBox>
+    </HBox>
 
     <VBox spacing="10.0" style="-fx-background-color: #1e1e1e; -fx-padding: 15; -fx-background-radius: 10;">
         <Label text="STATYSTYKI KARIERY" textFill="#94a3b8" style="-fx-font-weight: bold; -fx-font-size: 12px;"/>
@@ -60,6 +112,10 @@
     </VBox>
 
     <VBox spacing="5.0" alignment="CENTER_LEFT" style="-fx-min-width: 350;">
+        <Label fx:id="actionLabel" text="Aktualne działanie: Brak" textFill="#60a5fa" style="-fx-font-size: 16px;"/>
+    </VBox>
+
+    <VBox spacing="5.0" alignment="CENTER_LEFT" style="-fx-min-width: 350;">
         <Label text="Konsola zdarzeń (Live-Feed):" textFill="#94a3b8" />
         <TextArea fx:id="logArea" editable="false" prefHeight="150.0" prefWidth="350.0"
                   wrapText="true"
@@ -78,8 +134,4 @@
         <Button fx:id="simulationButton" text="URUCHOM SYMULACJĘ" onAction="#onToggleSimulation"
                 style="-fx-background-color: #a3e635; -fx-text-fill: black; -fx-font-weight: bold; -fx-padding: 15 25; -fx-cursor: hand;"/>
     </HBox>
-
-
-
-
 </VBox>

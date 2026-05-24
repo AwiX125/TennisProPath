@@ -13,24 +13,44 @@ import pl.edu.pwr.simulation.tennispropath.model.Player;
 
 public class SimulationController {
 
-    @FXML private Label timeLabel;
-    @FXML private Label nameLabel;
-    @FXML private Label actionLabel;
-    @FXML private Label levelLabel;
+
+    // Profil
+    @FXML private Label ageLabel;
     @FXML private Label xpLabel;
-    @FXML private Label statusLabel;
+    @FXML private Label favCourtLabel;
     @FXML private ProgressBar staminaBar;
-    @FXML private Button simulationButton;
     @FXML private Label rankingLabel;
-    @FXML private TextArea logArea;
-    @FXML private Slider speedSlider;
+    @FXML private Label statusLabel;
+    @FXML private Label skillLabel;
+
+    // Kort
+    @FXML private Label clayLabel;
+    @FXML private Label grassLabel;
+    @FXML private Label hardLabel;
+
+    // Umiejętności
+    @FXML private Label forehandLabel;
+    @FXML private Label backhandLabel;
+    @FXML private Label serveLabel;
+
+    // Statystyki
     @FXML private Label winsLabel;
     @FXML private Label lossesLabel;
     @FXML private Label winRateLabel;
 
+    // Ogólne
+    @FXML private Label timeLabel;
+    @FXML private Label nameLabel;
+    @FXML private Label actionLabel;
+    @FXML private Button simulationButton;
+    @FXML private TextArea logArea;
+    @FXML private Slider speedSlider;
+
+    // Player & Opponent
     private Player player;
     private final MatchEngine matchEngine = new MatchEngine();
     private final OpponentFactory opponentFactory = new OpponentFactory();
+
     private Timeline timeline;
     private int currentWeek = 1;
     private boolean isRunning = false;
@@ -46,6 +66,7 @@ public class SimulationController {
      */
     private void setupTimeline(double ms) {
         boolean resubmit = isRunning;
+
         if (timeline != null) {
             timeline.stop();
         }
@@ -82,19 +103,29 @@ public class SimulationController {
         currentWeek++;
         String action;
 
+        if (currentWeek % 52 == 0) {
+            player.celebrateBirthday();
+            logEvent("Zawodnik świętuje urodziny. Ma teraz " + player.getAge() + " lat.");
+        }
+
+        if (player.isLeveledUp()) {
+            logEvent("AWANS! " + player.getName() + " wskoczył na poziom " + player.getSkillLevel() + ". Kolejny poziom wymaga: " + player.getXpRequiredForNextLevel() + " XP.");
+            player.setLeveledUp(false);
+        }
+
         if (currentWeek % 4 == 0 && !player.isInjured()) {
             Opponent bot = opponentFactory.createRandomOpponent(player.getSkillLevel());
 
             action = matchEngine.simulateMatch(player, bot);
         } else {
-            int oldStamina = player.getStamina();
+            double oldEnergy = player.getEnergy();
             boolean oldInjury = player.isInjured();
 
             player.act();
 
             if (player.isInjured()) {
                 action = oldInjury ? "Rehabilitacja kontuzji" : "Doznał kontuzji z przemęczenia!";
-            } else if (player.getStamina() > oldStamina) {
+            } else if (player.getEnergy() > oldEnergy) {
                 action = "Odpoczynek i regeneracja";
             } else {
                 action = "Intensywny trening";
@@ -126,24 +157,47 @@ public class SimulationController {
     }
 
     private void updateUI(String currentAction) {
+        // Ogólne
+        nameLabel.setText(player.getName());
         timeLabel.setText("Tydzień kariery: " + currentWeek);
         actionLabel.setText("Aktualne działanie: " + currentAction);
-        levelLabel.setText("Poziom umiejętności: " + player.getSkillLevel());
-        xpLabel.setText("Doświadczenie: " + player.getExperience() + " XP");
-        staminaBar.setProgress(player.getStamina() / 100.0);
 
-        rankingLabel.setText("Punkty rankingowe: " + player.getRankingPoints() + " pkt");
+        // Profil
+        skillLabel.setText(String.valueOf(player.getSkillLevel()));
+        double energyProgress = player.getEnergy() / player.getStamina();
+        staminaBar.setProgress(energyProgress);
+        xpLabel.setText(player.getXpForCurrentLevel() + " XP / " + player.getXpRequiredForNextLevel() + " XP");
+        ageLabel.setText(player.getAge() + " lat");
+        rankingLabel.setText(player.getRankingPoints() + " pkt");
 
+        // Statystyki
         winsLabel.setText(String.valueOf(player.getMatchesWon()));
         lossesLabel.setText(String.valueOf(player.getMatchesLost()));
         winRateLabel.setText(String.format("%.0f%%", player.getWinRate()));
 
         if (player.isInjured()) {
-            statusLabel.setText("Status: KONTUZJOWANY");
+            statusLabel.setText("Status: Kontuzjowany");
             statusLabel.setStyle("-fx-text-fill: #ef4444; -fx-font-weight: bold;");
+            statusLabel.setTextFill(javafx.scene.paint.Color.web("#ef4444"));
         } else {
             statusLabel.setText("Status: Zdrowy");
             statusLabel.setStyle("-fx-text-fill: #a3e635; -fx-font-weight: bold;");
+            statusLabel.setTextFill(javafx.scene.paint.Color.web("#22c55e"));
         }
+
+        // Ulubiony kort (używamy pobierania nazwy z Enuma CourtType)
+        if (player.getFavoriteCourt() != null) {
+            favCourtLabel.setText(player.getFavoriteCourt().getDisplayName());
+        }
+
+        // umiejętności
+        forehandLabel.setText(String.format("%.1f", player.getForehandStrength()));
+        backhandLabel.setText(String.format("%.1f", player.getBackhandStrength()));
+        serveLabel.setText(String.format("%.1f", player.getServeStrength()));
+
+        // korty
+        clayLabel.setText(String.format("%.1f", player.getClayStrength()));
+        grassLabel.setText(String.format("%.1f", player.getGrassStrength()));
+        hardLabel.setText(String.format("%.1f", player.getHardStrength()));
     }
 }
