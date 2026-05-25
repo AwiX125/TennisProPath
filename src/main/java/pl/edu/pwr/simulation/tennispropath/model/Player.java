@@ -12,6 +12,7 @@ public class Player extends TennisPlayer {
 
     // Tymczasowe
     private boolean isInjured;
+    private int injuryWeeksRemaining = 0;
     private int xpForCurrentLevel = 0;
     private int xpRequiredForNextLevel = 100;
     boolean leveledUp = false;
@@ -36,6 +37,7 @@ public class Player extends TennisPlayer {
 
 
     private final Random random = new Random();
+    private final InjurySystem injurySystem = new InjurySystem();
 
 
     public Player(String name) {
@@ -122,7 +124,8 @@ public class Player extends TennisPlayer {
         this.energy += recovery;
 
         if (isInjured) {
-            if (random.nextInt(100) < 30 * stamina * 0.01) {
+            injuryWeeksRemaining = Math.max(0, injuryWeeksRemaining - 1);
+            if (injuryWeeksRemaining == 0) {
                 this.isInjured = false;
                 System.out.println(name + " wyleczył kontuzję i wraca do gry!");
             }
@@ -165,11 +168,20 @@ public class Player extends TennisPlayer {
         if (this.energy < 0) this.energy = 0;
 
         if (this.energy < 20 && !isInjured) {
-            if (random.nextInt(100) < 30) {
+            if (injurySystem.rollForInjury(getFatigueLevel())) {
                 this.isInjured = true;
-                System.out.println(name + " doznał kontuzji z powodu przemęczenia!");
+                this.injuryWeeksRemaining = injurySystem.determineRecoveryDuration(getFatigueLevel());
+                System.out.println(name + " doznał kontuzji z powodu przemęczenia! Rekonwalescencja: " + injuryWeeksRemaining + " tygodni.");
             }
         }
+    }
+
+    public double getFatigueLevel() {
+        return injurySystem.calculateFatigue(this.energy, this.stamina);
+    }
+
+    public int getInjuryWeeksRemaining() {
+        return injuryWeeksRemaining;
     }
 
     // GETTERY I SETTERY

@@ -45,6 +45,8 @@ public class SimulationController {
     @FXML private Button simulationButton;
     @FXML private TextArea logArea;
     @FXML private Slider speedSlider;
+    @FXML private Label injuryWeeksLabel;
+    @FXML private Label energyLabel;
 
     // Player & Opponent
     private Player player;
@@ -175,14 +177,18 @@ public class SimulationController {
         lossesLabel.setText(String.valueOf(player.getMatchesLost()));
         winRateLabel.setText(String.format("%.0f%%", player.getWinRate()));
 
+        energyLabel.setText(String.format("%.0f / %.0f", player.getEnergy(), player.getStamina()));
+
         if (player.isInjured()) {
             statusLabel.setText("Status: Kontuzjowany");
             statusLabel.setStyle("-fx-text-fill: #ef4444; -fx-font-weight: bold;");
             statusLabel.setTextFill(javafx.scene.paint.Color.web("#ef4444"));
+            injuryWeeksLabel.setText(player.getInjuryWeeksRemaining() + " tyg.");
         } else {
             statusLabel.setText("Status: Zdrowy");
             statusLabel.setStyle("-fx-text-fill: #a3e635; -fx-font-weight: bold;");
             statusLabel.setTextFill(javafx.scene.paint.Color.web("#22c55e"));
+            injuryWeeksLabel.setText("Brak");
         }
 
         // Ulubiony kort (używamy pobierania nazwy z Enuma CourtType)

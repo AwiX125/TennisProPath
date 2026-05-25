@@ -51,6 +51,10 @@
                 <Label fx:id="favCourtLabel" text="-" textFill="#60a5fa" style="-fx-font-weight: bold;"/>
             </HBox>
             <HBox spacing="5">
+                <Label text="Pozostałe tygodnie leczenia:" textFill="LIGHTGRAY"/>
+                <Label fx:id="injuryWeeksLabel" text="Brak" textFill="#f97316" style="-fx-font-weight: bold;"/>
+            </HBox>
+            <HBox spacing="5">
                 <Label fx:id="statusLabel" text="Status: Zdrowy" textFill="#a3e635" style="-fx-font-size: 16px;"/>
             </HBox>
         </VBox>
@@ -108,7 +112,10 @@
 
     <VBox spacing="5.0" alignment="CENTER_LEFT">
         <Label text="Kondycja (Stamina):" textFill="LIGHTGRAY" />
-        <ProgressBar fx:id="staminaBar" progress="1.0" prefWidth="350.0" style="-fx-accent: #a3e635;"/>
+        <HBox spacing="10.0" alignment="CENTER_LEFT">
+            <ProgressBar fx:id="staminaBar" progress="1.0" prefWidth="300.0" style="-fx-accent: #a3e635;"/>
+            <Label fx:id="energyLabel" text="100 / 100" textFill="#e2e8f0" style="-fx-font-weight: bold;"/>
+        </HBox>
     </VBox>
 
     <VBox spacing="5.0" alignment="CENTER_LEFT" style="-fx-min-width: 350;">
