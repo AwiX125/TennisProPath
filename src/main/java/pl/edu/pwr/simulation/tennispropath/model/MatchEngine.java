@@ -67,8 +67,8 @@ public class MatchEngine {
             player.addRankingPoints(250);
             logResult = "🏆 WYGRAŁ na nawierzchni " + court.getDisplayName() + " z " + opponent.getName() + " (+250 pkt)";
         } else {
-            player.addRankingPoints(20);
-            logResult = "❌ PRZEGRAŁ na nawierzchni " + court.getDisplayName() + " z " + opponent.getName() + " (+20 pkt)";
+            player.deductRankingPoints(75);
+            logResult = "❌ PRZEGRAŁ na nawierzchni " + court.getDisplayName() + " z " + opponent.getName() + " (-75 pkt)";
         }
 
         return logResult;

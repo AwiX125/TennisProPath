@@ -195,7 +195,18 @@ public class Player extends TennisPlayer {
 
     // ranking
     public int getRankingPoints() { return rankingPoints; }
-    public void addRankingPoints(int points) { this.rankingPoints += points; }
+
+    public void addRankingPoints(int points) {
+        this.rankingPoints = Math.max(0, this.rankingPoints + points);
+    }
+
+    public void deductRankingPoints(int points) {
+        addRankingPoints(-Math.abs(points));
+    }
+
+    public RankingCategory getRankingCategory() {
+        return RankingCategory.fromPoints(this.rankingPoints);
+    }
 
     // tymczasowe
     public boolean isInjured() { return isInjured; }

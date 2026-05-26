@@ -116,7 +116,10 @@ public class SimulationController {
         }
 
         if (currentWeek % 4 == 0 && !player.isInjured()) {
-            Opponent bot = opponentFactory.createRandomOpponent(player.getSkillLevel());
+            Opponent bot = opponentFactory.createOpponentForCategory(
+                player.getRankingCategory(),
+                player.getSkillLevel()
+            );
 
             action = matchEngine.simulateMatch(player, bot);
         } else {
