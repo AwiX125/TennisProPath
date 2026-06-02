@@ -1,27 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml/1"
+<VBox alignment="CENTER" spacing="25.0" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="pl.edu.pwr.simulation.tennispropath.controller.ConfigController"
-      style="-fx-background-color: #121212; -fx-padding: 40;">
+      style="-fx-background-color: #0f172a; -fx-padding: 40 50; -fx-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
 
-    <Label text="Konfiguracja Symulacji" textFill="#a3e635">
+    <Label text="Kreator Postaci Tenisisty" textFill="#10b981">
         <font>
-            <Font name="System Bold" size="22.0" />
+            <Font name="System Bold" size="26.0" />
         </font>
     </Label>
 
-    <VBox spacing="8.0" alignment="CENTER_LEFT" style="-fx-min-width: 250;">
-        <Label text="Imię i nazwisko tenisisty:" textFill="LIGHTGRAY" />
-        <TextField fx:id="nameInputField" text="Roger Federer"
-                   style="-fx-background-color: #1e1e1e; -fx-text-fill: white; -fx-padding: 8; -fx-border-color: #3b82f6; -fx-border-radius: 5; -fx-background-radius: 5;"/>
+    <VBox spacing="20.0" alignment="CENTER" prefWidth="420.0" maxWidth="420.0"
+          style="-fx-background-color: #1e293b; -fx-padding: 30; -fx-background-radius: 12; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 4);">
+
+        <VBox spacing="8.0" alignment="CENTER_LEFT">
+            <Label text="IMIĘ I NAZWISKO" textFill="#64748b"
+                   style="-fx-font-weight: bold; -fx-font-size: 11px; -fx-letter-spacing: 1px;" />
+            <TextField fx:id="nameInputField" text="Roger Federer" maxWidth="Infinity"
+                       style="-fx-background-color: #0f172a; -fx-text-fill: #f8fafc; -fx-padding: 10 12; -fx-background-radius: 6; -fx-border-color: #334155; -fx-border-radius: 6; -fx-font-size: 14px;"/>
+        </VBox>
+
+        <HBox spacing="15.0" alignment="CENTER">
+            <VBox spacing="8.0" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                <Label text="WIEK STARTERA" textFill="#64748b"
+                       style="-fx-font-weight: bold; -fx-font-size: 11px; -fx-letter-spacing: 1px;" />
+                <Spinner fx:id="ageSpinner" maxWidth="Infinity" editable="false"
+                         style="-fx-background-color: #0f172a; -fx-text-fill: #f8fafc; -fx-background-radius: 6; -fx-border-color: #334155; -fx-border-radius: 6; -fx-font-size: 14px;"/>
+            </VBox>
+
+            <VBox spacing="8.0" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                <Label text="ULUBIONY KORT" textFill="#64748b"
+                       style="-fx-font-weight: bold; -fx-font-size: 11px; -fx-letter-spacing: 1px;" />
+                <ComboBox fx:id="courtComboBox" maxWidth="Infinity"
+                          style="-fx-background-color: #0f172a; -fx-text-fill: #f8fafc; -fx-background-radius: 6; -fx-border-color: #334155; -fx-border-radius: 6; -fx-font-size: 14px;"/>
+            </VBox>
+        </HBox>
+
+        <VBox spacing="12.0" style="-fx-border-color: #334155; -fx-border-width: 1 0 0 0; -fx-padding: 15 0 0 0;">
+            <HBox alignment="CENTER_LEFT">
+                <Label text="PUNKTY UMIEJĘTNOŚCI" textFill="#10b981" style="-fx-font-weight: bold; -fx-font-size: 13px;" />
+                <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                    <Label fx:id="poolLabel" text="Dostępne punkty: 30" textFill="#64748b" style="-fx-font-weight: bold; -fx-font-size: 13px;" />
+                </HBox>
+            </HBox>
+
+            <HBox alignment="CENTER" spacing="10.0" style="-fx-background-color: #0f172a; -fx-padding: 8 12; -fx-background-radius: 6;">
+                <Label text="Forehand" textFill="#f8fafc" style="-fx-font-size: 14px;" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                <Button text="-" onAction="#onModifyForehand" style="-fx-background-color: #334155; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;"/>
+                <Label fx:id="forehandLabel" text="10" textFill="#10b981" style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-min-width: 25; -fx-alignment: center;"/>
+                <Button text="+" onAction="#onModifyForehand" style="-fx-background-color: #334155; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;"/>
+            </HBox>
+
+            <HBox alignment="CENTER" spacing="10.0" style="-fx-background-color: #0f172a; -fx-padding: 8 12; -fx-background-radius: 6;">
+                <Label text="Backhand" textFill="#f8fafc" style="-fx-font-size: 14px;" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                <Button text="-" onAction="#onModifyBackhand" style="-fx-background-color: #334155; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;"/>
+                <Label fx:id="backhandLabel" text="10" textFill="#10b981" style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-min-width: 25; -fx-alignment: center;"/>
+                <Button text="+" onAction="#onModifyBackhand" style="-fx-background-color: #334155; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;"/>
+            </HBox>
+
+            <HBox alignment="CENTER" spacing="10.0" style="-fx-background-color: #0f172a; -fx-padding: 8 12; -fx-background-radius: 6;">
+                <Label text="Serwis" textFill="#f8fafc" style="-fx-font-size: 14px;" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                <Button text="-" onAction="#onModifyServe" style="-fx-background-color: #334155; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;"/>
+                <Label fx:id="serveLabel" text="10" textFill="#10b981" style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-min-width: 25; -fx-alignment: center;"/>
+                <Button text="+" onAction="#onModifyServe" style="-fx-background-color: #334155; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;"/>
+            </HBox>
+        </VBox>
+
     </VBox>
 
     <Button text="ZATWIERDŹ I URUCHOM" onAction="#onStartSimulation"
-            style="-fx-background-color: #a3e635; -fx-text-fill: black; -fx-font-weight: bold; -fx-padding: 15 25; -fx-cursor: hand;"/>
+            style="-fx-background-color: #10b981; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 12 40; -fx-background-radius: 8; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(16,185,129,0.3), 15, 0, 0, 0);"/>
+
 </VBox>

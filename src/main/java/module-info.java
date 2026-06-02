@@ -7,6 +7,7 @@ module pl.edu.pwr.simulation.tennispropath {
     requires org.kordamp.bootstrapfx.core;
 
     opens pl.edu.pwr.simulation.tennispropath to javafx.fxml;
+    opens pl.edu.pwr.simulation.tennispropath.model to javafx.base;
     exports pl.edu.pwr.simulation.tennispropath;
     exports pl.edu.pwr.simulation.tennispropath.controller;
     opens pl.edu.pwr.simulation.tennispropath.controller to javafx.fxml;
