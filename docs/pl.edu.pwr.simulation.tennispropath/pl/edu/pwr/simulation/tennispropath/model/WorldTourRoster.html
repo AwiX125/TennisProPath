@@ -92,10 +92,10 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">WorldTourRoster</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
-<div class="block">Klasa menedżera zestawienia World Tour (WorldTourRoster).
+<div class="block">Klasa menedżera zestawienia World Tour.
  Odpowiada za utrzymanie listy aktywnych tenisistów, rejestrację żywego gracza,
  obsługę rocznej ewolucji touru (emerytury i napływ nowych botów), dobór przeciwników
- oraz symulowanie autonomicznych meczów w tle.</div>
+ oraz symulowanie meczów w tle.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -139,7 +139,8 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#processYearlyEvolution()" class="member-name-link">processYearlyEvolution</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Logika rocznej aktualizacji - starzenie, emerytury, nowe talenty.</div>
+<div class="block">Logika rocznej aktualizacji - starzenie, emerytury, nowe talenty
+ Wywoływana raz na rok (co 52 tygodnie).</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#registerHumanPlayer(pl.edu.pwr.simulation.tennispropath.model.Player)" class="member-name-link">registerHumanPlayer</a><wbr>(<a href="Player.html" title="class in pl.edu.pwr.simulation.tennispropath.model">Player</a>&nbsp;human)</code></div>
@@ -209,7 +210,7 @@ loadScripts(document, 'script');</script>
  Pozwala kontrolerowi SimulationController ustawić elementy tabeli rankingu.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>obserwowalna lista aktywnych tenisistów</dd>
+<dd>lista aktywnych tenisistów</dd>
 </dl>
 </section>
 </li>
@@ -217,9 +218,9 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="processYearlyEvolution()">
 <h3>processYearlyEvolution</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">processYearlyEvolution</span>()</div>
-<div class="block">Logika rocznej aktualizacji - starzenie, emerytury, nowe talenty.
+<div class="block">Logika rocznej aktualizacji - starzenie, emerytury, nowe talenty
  Wywoływana raz na rok (co 52 tygodnie). Starzeje wszystkich botów, usuwa tych,
- którzy przekroczyli 45 lat i uzupełnia braki nowymi juniorami.</div>
+ którzy przekroczyli 45 lat i uzupełnia braki nowymi juniorami</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>Liczba botów, którzy odeszli w tym roku na emeryturę</dd>

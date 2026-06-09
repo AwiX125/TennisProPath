@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Klasa menedżera zestawienia World Tour (WorldTourRoster).
+ * Klasa menedżera zestawienia World Tour.
  * Odpowiada za utrzymanie listy aktywnych tenisistów, rejestrację żywego gracza,
  * obsługę rocznej ewolucji touru (emerytury i napływ nowych botów), dobór przeciwników
- * oraz symulowanie autonomicznych meczów w tle.
+ * oraz symulowanie meczów w tle.
  */
 public class WorldTourRoster {
 

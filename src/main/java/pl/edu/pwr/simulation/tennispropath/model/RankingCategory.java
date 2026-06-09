@@ -52,7 +52,7 @@ public enum RankingCategory {
     public String getDisplayName() { return displayName; }
 
     /**
-     * Statyczna metoda narzędziowa automatycznie dopasowująca kategorię rankingową
+     * Statyczna metoda automatycznie dopasowująca kategorię rankingową
      * na podstawie przesłanej liczby punktów ATP zawodnika
      *
      * @param points Aktualny dorobek punktowy tenisisty
