@@ -33,8 +33,22 @@ public enum RankingCategory {
     // GETTERY
     // ====================================================================
 
+    /**
+     * Pobiera minimalną liczbę punktów wymaganych do utrzymania tej kategorii.
+     * @return dolny próg punktowy tej kategorii
+     */
     public int getMinPoints() { return minPoints; }
+
+    /**
+     * Pobiera maksymalną liczbę punktów dopuszczalną w tej kategorii.
+     * @return górny próg punktowy tej kategorii
+     */
     public int getMaxPoints() { return maxPoints; }
+
+    /**
+     * Pobiera nazwę kategorii rankingowej wyświetlaną w interfejsie.
+     * @return etykieta wyświetlana dla tej kategorii
+     */
     public String getDisplayName() { return displayName; }
 
     /**

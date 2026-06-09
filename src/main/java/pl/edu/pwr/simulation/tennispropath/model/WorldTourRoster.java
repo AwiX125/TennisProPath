@@ -55,6 +55,8 @@ public class WorldTourRoster {
     /**
      * Zwraca listę powiązaną z GUI TableView.
      * Pozwala kontrolerowi SimulationController ustawić elementy tabeli rankingu.
+     *
+     * @return lista aktywnych tenisistów
      */
     public ObservableList<TennisPlayer> getActivePlayers() {
         return activePlayers;
@@ -65,7 +67,7 @@ public class WorldTourRoster {
      * Wywoływana raz na rok (co 52 tygodnie). Starzeje wszystkich botów, usuwa tych,
      * którzy przekroczyli 45 lat i uzupełnia braki nowymi juniorami
      *
-     * @return Liczba botów, którzy odeszli w tym roku na emeryturę (int)
+     * @return Liczba botów, którzy odeszli w tym roku na emeryturę
      */
     public int processYearlyEvolution() {
         int retiredCount = 0;
@@ -99,9 +101,9 @@ public class WorldTourRoster {
     }
 
     /**
-     * Dobiera sprawiedliwego rywala z puli
-     * W pierwszej kolejności szuka botów, których Skill Level różni się od skilla gracza o maksymalnie 10 punktów
-     * W przypadku braku dopasowania (fallback), przeszukuje całą dostępną pulę botów
+     * Dobiera sprawiedliwego rywala z puli.
+     * W pierwszej kolejności szuka botów, których Skill Level różni się od skilla gracza o maksymalnie 10 punktów.
+     * W przypadku braku dopasowania (fallback), przeszukuje całą dostępną pulę botów.
      *
      * @param playerSkill  Aktualny poziom umiejętności żywego gracza
      * @param humanPlayer  Instancja obiektu żywego gracza
@@ -134,7 +136,7 @@ public class WorldTourRoster {
     }
 
     /**
-     * Symuluje losowe mecze między botami w tle, aby ich punkty rankingowe stale się zmieniały
+     * Symuluje losowe mecze między botami w tle, aby ich punkty rankingowe stale się zmieniały.
      */
     public void simulateBackgroundMatches() {
         List<Opponent> botsOnly = activePlayers.stream()
@@ -186,7 +188,7 @@ public class WorldTourRoster {
     }
 
     /**
-     * Sortuje ranking od najwyższej do najniższej liczby punktów rankingowych
+     * Sortuje ranking od najwyższej do najniższej liczby punktów rankingowych.
      * Wykorzystuje wyrażenie lambda do porównania pola rankingPoints obiektów TennisPlayer.
      */
     public void sortRoster() {

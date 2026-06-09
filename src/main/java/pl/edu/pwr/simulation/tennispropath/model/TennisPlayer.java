@@ -63,12 +63,46 @@ public abstract class TennisPlayer {
 
     // --- Atrybuty techniczne i fizyczne (uderzenia oraz korty) ---
 
+    /**
+     * Pobiera siłę forehandu zawodnika.
+     * @return wartość forehandStrength
+     */
     public double getForehandStrength() { return forehandStrength; }
+
+    /**
+     * Pobiera siłę backhandu zawodnika.
+     * @return wartość backhandStrength
+     */
     public double getBackhandStrength() { return backhandStrength; }
+
+    /**
+     * Pobiera siłę serwisu zawodnika.
+     * @return wartość serveStrength
+     */
     public double getServeStrength()    { return serveStrength; }
+
+    /**
+     * Pobiera adaptację zawodnika do gry na mączce.
+     * @return wartość clayStrength
+     */
     public double getClayStrength()     { return clayStrength; }
+
+    /**
+     * Pobiera adaptację zawodnika do gry na trawie.
+     * @return wartość grassStrength
+     */
     public double getGrassStrength()    { return grassStrength; }
+
+    /**
+     * Pobiera adaptację zawodnika do gry na betonie.
+     * @return wartość hardStrength
+     */
     public double getHardStrength()     { return hardStrength; }
+
+    /**
+     * Pobiera preferowany typ nawierzchni zawodnika.
+     * @return ulubiony typ kortu
+     */
     public CourtType getFavoriteCourt() { return favoriteCourt; }
 
     /**
@@ -87,31 +121,91 @@ public abstract class TennisPlayer {
 
     // --- Dane identyfikacyjne i profil zawodnika ---
 
+    /**
+     * Pobiera imię lub pseudonim tenisisty.
+     * @return nazwa zawodnika
+     */
     public String getName()    { return name; }
+
+    /**
+     * Pobiera ogólny poziom umiejętności zawodnika.
+     * @return wartość skillLevel
+     */
     public int getSkillLevel() { return skillLevel; }
+
+    /**
+     * Pobiera wiek zawodnika w latach.
+     * @return wiek zawodnika
+     */
     public int getAge()        { return age; }
 
     // --- Zarządzanie punktacją w rankingu ATP ---
 
+    /**
+     * Pobiera aktualny wynik punktowy w rankingu ATP.
+     * @return punkty rankingowe zawodnika
+     */
     public int getRankingPoints() {
         return rankingPoints;
     }
 
+    /**
+     * Ustawia liczbę punktów rankingowych ATP zawodnika.
+     * @param rankingPoints nowy stan punktów rankingowych
+     */
     public void setRankingPoints(int rankingPoints) {
         this.rankingPoints = rankingPoints;
     }
 
     // --- Settery konfiguracyjne wykorzystywane przez kreator postaci w ConfigController ---
 
+    /**
+     * Ustawia wiek zawodnika.
+     * @param age nowy wiek zawodnika
+     */
     public void setAge(int age) { this.age = age; }
+
+    /**
+     * Ustawia preferowany typ kortu zawodnika.
+     * @param favoriteCourt ulubiona nawierzchnia
+     */
     public void setFavoriteCourt(CourtType favoriteCourt) { this.favoriteCourt = favoriteCourt; }
+
+    /**
+     * Ustawia siłę forehandu zawodnika.
+     * @param forehandStrength nowy poziom forehandStrength
+     */
     public void setForehandStrength(double forehandStrength) { this.forehandStrength = forehandStrength; }
+
+    /**
+     * Ustawia siłę backhandu zawodnika.
+     * @param backhandStrength nowy poziom backhandStrength
+     */
     public void setBackhandStrength(double backhandStrength) { this.backhandStrength = backhandStrength; }
+
+    /**
+     * Ustawia siłę serwisu zawodnika.
+     * @param serveStrength nowy poziom serveStrength
+     */
     public void setServeStrength(double serveStrength) { this.serveStrength = serveStrength; }
 
     // Settery dla nawierzchni (używane przy dystrybucji bonusów startowych dla ulubionego kortu)
+    /**
+     * Ustawia adaptację do gry na mączce.
+     * @param clayStrength nowy poziom clayStrength
+     */
     public void setClayStrength(double clayStrength) { this.clayStrength = clayStrength; }
+
+    /**
+     * Ustawia adaptację do gry na trawie.
+     * @param grassStrength nowy poziom grassStrength
+     */
     public void setGrassStrength(double grassStrength) { this.grassStrength = grassStrength; }
+
+    /**
+     * Ustawia adaptację do gry na betonie.
+     * @param hardStrength nowy poziom hardStrength
+     */
     public void setHardStrength(double hardStrength) { this.hardStrength = hardStrength; }
 
     /**

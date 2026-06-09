@@ -2,6 +2,11 @@ package pl.edu.pwr.simulation.tennispropath.model;
 
 import java.util.Random;
 
+/**
+ * Klasa reprezentująca gracza w symulacji.
+ * Dziedziczy po TennisPlayer i obsługuje energię, trening, regenerację, kontuzje,
+ * statystyki meczowe oraz progresję doświadczenia.
+ */
 public class Player extends TennisPlayer {
 
     // Profil gracza - podstawowe atrybuty fizyczne i rozwojowe
@@ -23,7 +28,8 @@ public class Player extends TennisPlayer {
     /**
      * Zapisuje wynik meczu
      * Zwiększa licznik rozegranych gier oraz, w przypadku sukcesu, licznik zwycięstw
-     * */
+     * @param won flaga określająca, czy mecz został wygrany
+     */
     public void recordMatchResult(boolean won) {
         this.matchesPlayed++;
         if (won) {
@@ -41,6 +47,7 @@ public class Player extends TennisPlayer {
     /**
      * Konstruktor tworzący nowego gracza o zadanym imieniu
      * Inicjalizuje wiek (20 lat), startowy poziom skilla (18) oraz losuje parametry początkowe
+     * @param name imię zawodnika
      */
     public Player(String name) {
         super(name, 20, 18); // Wywołanie konstruktora klasy bazowej TennisPlayer(name, age, skillLevel)
@@ -189,6 +196,7 @@ public class Player extends TennisPlayer {
 
     /**
      * Pobiera obliczony procentowy współczynnik zmęczenia organizmu
+     * @return aktualny poziom zmęczenia jako wartość procentowa
      */
     public double getFatigueLevel() {
         return injurySystem.calculateFatigue(this.energy, this.stamina);
@@ -196,6 +204,7 @@ public class Player extends TennisPlayer {
 
     /**
      * Pobiera liczbę tygodni pozostałych do zakończenia leczenia kontuzji
+     * @return liczba pozostałych tygodni rekonwalescencji
      */
     public int getInjuryWeeksRemaining() {
         return injuryWeeksRemaining;
@@ -206,26 +215,84 @@ public class Player extends TennisPlayer {
     // ==========================================
 
     // Gettery i settery profilu fizycznego i nawierzchni
+    /**
+     * Pobiera aktualną energię zawodnika.
+     * @return aktualny poziom energii
+     */
     public double getEnergy() { return energy; }
+
+    /**
+     * Ustawia poziom energii zawodnika i sprawdza limity względem staminy.
+     * @param energy nowy poziom energii
+     */
     public void setEnergy(double energy) { this.energy = energy; checkStaminaBounds(); }
+
+    /**
+     * Pobiera zgromadzone doświadczenie zawodnika w punktach XP.
+     * @return suma doświadczenia zawodnika
+     */
     public int getExperience() { return experience; }
+
+    /**
+     * Pobiera maksymalny pułap staminy zawodnika.
+     * @return aktualny poziom staminy
+     */
     public double getStamina() { return stamina; }
 
     // Gettery i settery stanów tymczasowych / flag symulatora
+    /**
+     * Sprawdza, czy zawodnik jest obecnie kontuzjowany.
+     * @return true, jeśli zawodnik ma kontuzję
+     */
     public boolean isInjured() { return isInjured; }
+
+    /**
+     * Sprawdza, czy zawodnik zdobył awans poziomu i flaga jest ustawiona.
+     * @return true, jeśli zawodnik awansował
+     */
     public boolean isLeveledUp() { return leveledUp; }
+
+    /**
+     * Ustawia flagę informującą o awansie zawodnika.
+     * @param leveledUp flaga awansu
+     */
     public void setLeveledUp(boolean leveledUp) { this.leveledUp = leveledUp; }
+
+    /**
+     * Pobiera wymagane XP do następnego poziomu.
+     * @return liczba punktów XP potrzebnych do awansu
+     */
     public int getXpRequiredForNextLevel() {return this.xpRequiredForNextLevel;}
+
+    /**
+     * Pobiera XP zdobyte na aktualnym poziomie zawodnika.
+     * @return punkty XP zdobyte w bieżącym poziomie
+     */
     public int getXpForCurrentLevel() {return this.xpForCurrentLevel;}
 
     // Gettery i kalkulatory statystyk meczowych
+    /**
+     * Pobiera liczbę rozegranych meczów przez zawodnika.
+     * @return liczba rozegranych meczów
+     */
     public int getMatchesPlayed() { return matchesPlayed; }
+
+    /**
+     * Pobiera liczbę wygranych meczów przez zawodnika.
+     * @return liczba zwycięstw w meczach
+     */
     public int getMatchesWon() { return matchesWon; }
-    public int getMatchesLost() { return matchesPlayed - matchesWon; } // Różnica daje liczbę przegranych
+
+    /**
+     * Pobiera liczbę przegranych meczów jako różnicę rozegranych i wygranych.
+     * @return liczba przegranych meczów
+     */
+    public int getMatchesLost() { return matchesPlayed - matchesWon; }
 
     /**
      * Oblicza procentowy współczynnik zwycięstw (Win Rate).
      * Zwraca 0.0, jeśli zawodnik nie rozegrał jeszcze żadnego spotkania.
+     * @return procentowy wskaźnik wygranych meczów
      */
     public double getWinRate() {
         if (matchesPlayed == 0) return 0.0;

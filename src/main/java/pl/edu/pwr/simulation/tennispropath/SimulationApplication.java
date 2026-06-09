@@ -7,7 +7,17 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Główna klasa aplikacji JavaFX odpowiedzialna za uruchomienie widoku konfiguracji i
+ * wyświetlenie głównego okna symulacji
+ */
 public class SimulationApplication extends Application {
+    /**
+     * Inicjalizuje główne okno JavaFX, ładuje plik FXML i ustawia scenę.
+     *
+     * @param stage główne okno aplikacji
+     * @throws IOException jeśli nie uda się załadować pliku FXML
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(SimulationApplication.class.getResource("config-view.fxml"));
